@@ -1,261 +1,316 @@
-Gnod Song Recommender
+# 🎵 Gnod Song Recommender
 
-Project Overview
+## 📌 Project Overview
 
-This project was developed as part of the Ironhack Data Analytics Bootcamp.
+This project was developed as part of the **Ironhack Data Analytics Bootcamp** and is based on a case study for **Gnod**, a music recommendation website.
 
-The project is based on a case study from Gnod, a music recommendation website. Gnod currently uses collaborative filtering to recommend artists based on the preferences of other users.
+Gnod currently uses collaborative filtering to recommend artists based on the preferences of its users. The objective of this project is to explore how Gnod could expand its recommendation system by introducing additional approaches to music discovery.
 
-The objective of this project is to explore how Gnod could improve its music recommendations by adding two new possibilities:
+The project investigates two main possibilities:
 
-Recommend songs that are currently popular around the world.
+1. **Popularity-based recommendations** — recommending songs that are currently popular around the world.
+2. **Acoustic similarity recommendations** — recommending songs that have similar musical characteristics to a song selected by the user.
 
-Recommend songs that are acoustically similar to a song selected by the user.
+The project combines data collection, data cleaning, exploratory data analysis, feature engineering, dimensionality reduction and machine learning clustering techniques to create an initial song recommendation prototype.
 
-For the first prototype, I explored two different data sources:
+---
 
-Billboard Global 200 for worldwide song popularity.
+## 🎯 Business Problem
 
-Free Music Archive (FMA) for track information and pre-computed audio features.
+Gnod already provides recommendations based on users' musical preferences. However, the company wants to offer users additional ways to discover music.
 
-The project then uses data analysis and clustering techniques to group songs with similar characteristics.
+The project therefore investigates two questions:
 
-Business Problem
-
-Gnod already provides recommendations based on users' musical tastes. However, the company would like to give users more ways to discover music.
-
-The proposed solution explores two different questions:
-
-What songs are popular around the world right now?
+> **What songs are currently popular around the world?**
 
 and
 
-What songs are acoustically similar to the song I selected?
+> **What songs are acoustically similar to a song selected by the user?**
 
-The idea is not to replace Gnod's existing recommendation system, but to investigate how additional data and techniques could make the product more flexible and useful.
+The goal is not to replace Gnod's existing collaborative-filtering system, but to explore how additional data and analytical techniques could make music discovery more flexible and interesting.
 
-Gnoosic User Example
+---
 
-As part of the initial exploration, I used the Gnoosic website with three artists that I already know and like:
+## 🎶 Initial Gnoosic Exploration
 
-The Killers
+As part of the initial exploration, I tested Gnoosic using three artists that I already know and enjoy:
 
-The National
+* The Killers
+* The National
+* Anavitória
 
-Anavitória
+Gnoosic suggested artists including:
 
-Gnoosic returned Rubel and Jovem Dionisio as artists that I might also like.
+* Rubel
+* Jovem Dionisio
 
-This was interesting because it shows how collaborative filtering can find relationships between artists based on the preferences of other users.
+This provided an interesting example of how collaborative filtering can identify relationships between artists based on user preferences.
 
-The goal of the new approach is different: instead of relying only on user preferences, it also explores the actual characteristics of songs.
+The approach developed in this project is different because it also considers the characteristics of the music itself.
 
-Data Sources
+---
 
-Billboard Global 200
+# 📊 Data Sources
 
-The Billboard Global 200 is used as the popularity source. It provides a worldwide view of songs that are currently performing strongly across international markets.
+## Billboard Global 200
+
+The **Billboard Global 200** was used as the source for worldwide music popularity.
+
+It provides information about songs performing strongly across international music markets.
 
 Source:
 
 https://www.billboard.com/charts/billboard-global-200/
 
-A JSON version of the chart was used during the data collection stage:
+A JSON version of the chart was used during the data collection process.
 
-https://github.com/KoreanThinker/billboard-json
+---
 
-Free Music Archive (FMA)
+## Free Music Archive (FMA)
 
-The Free Music Archive dataset provides music metadata and pre-computed audio features that can be used for music analysis and machine learning.
+The **Free Music Archive (FMA)** dataset was used for music metadata and pre-computed audio features.
+
+The dataset contains information that can be used to analyse the characteristics of individual tracks.
 
 Source:
 
 https://github.com/mdeff/fma
 
-The project uses the metadata and audio features rather than downloading the full audio collection.
+Because some FMA files are extremely large, the complete dataset is **not stored in this GitHub repository**.
 
-Technologies Used
+The `.gitignore` file specifically excludes the FMA metadata directory and the Python virtual environment.
 
-Python
+The notebook contains the steps required to work with the dataset.
 
-Pandas
+---
 
-NumPy
+# 🧰 Technologies Used
 
-Matplotlib
+The project uses:
 
-Seaborn
+* **Python**
+* **Pandas**
+* **NumPy**
+* **Matplotlib**
+* **Seaborn**
+* **Scikit-learn**
+* **Requests**
+* **BeautifulSoup**
+* **Jupyter Notebook**
+* **Git**
+* **GitHub**
+* **VS Code**
 
-Scikit-learn
+---
 
-Requests
+# 🔄 Data Analysis Workflow
 
-BeautifulSoup
+The project follows the following analytical workflow:
 
-Jupyter Notebook
+1. Define the business problem.
+2. Collect data from the selected sources.
+3. Inspect the datasets.
+4. Clean and prepare the data.
+5. Perform exploratory data analysis.
+6. Select relevant acoustic features.
+7. Standardize the selected features.
+8. Apply Principal Component Analysis (PCA).
+9. Determine suitable numbers of clusters.
+10. Apply K-Means clustering.
+11. Explore songs within each cluster.
+12. Develop a basic recommendation approach.
+13. Compare popularity-based and acoustic-similarity recommendations.
+14. Identify limitations and possible improvements.
 
-GitHub
+---
 
-Data Analysis Workflow
+# 🤖 Recommendation Approaches
 
-The project follows these main steps:
-
-Define the business problem.
-
-Collect data from the selected sources.
-
-Inspect and clean the datasets.
-
-Explore the data using descriptive statistics and visualizations.
-
-Select useful acoustic features.
-
-Standardize the features.
-
-Apply Principal Component Analysis (PCA).
-
-Use K-Means clustering to group similar songs.
-
-Evaluate different numbers of clusters using the elbow method and silhouette score.
-
-Explore the songs contained in each cluster.
-
-Build a basic song recommendation function.
-
-Compare popularity-based and acoustic-similarity recommendations.
-
-Identify limitations and propose future improvements.
-
-Clustering Approach
-
-The acoustic recommendation prototype uses K-Means clustering.
-
-Before applying K-Means, the selected audio features are standardized so that variables with different scales do not have an unfair influence on the clustering.
-
-PCA is then used to reduce the dimensionality of the data and make it easier to visualize the groups of songs.
-
-The number of clusters is evaluated using:
-
-Elbow Method
-
-Silhouette Score
-
-Songs belonging to the same cluster are treated as songs with relatively similar acoustic characteristics.
-
-Recommendation Approaches
-
-1. Popularity-Based Recommendation
+## 1. 🌎 Popularity-Based Recommendation
 
 The Billboard Global 200 is used to identify songs that are currently popular internationally.
 
-This recommendation does not depend on the user's previous taste. It can therefore introduce users to songs that are currently popular around the world.
+This approach does not depend on a user's previous musical preferences.
 
-2. Acoustic Similarity Recommendation
+It can therefore be used to introduce users to songs that are currently successful around the world.
 
-The second approach uses the audio features from the FMA dataset.
+---
 
-After clustering the songs, a selected song can be associated with one of the clusters. Other songs from the same cluster can then be suggested as possible recommendations.
+## 2. 🎧 Acoustic Similarity Recommendation
 
-This approach focuses more on the characteristics of the music itself.
+The second approach uses audio features from the FMA dataset.
 
-Important Limitations
+The selected acoustic features are processed and standardized before applying machine learning techniques.
 
-This is an initial prototype and not a production-ready recommendation system.
+Songs with similar characteristics can then be grouped together and used to generate possible recommendations.
 
-There are several limitations:
+This approach focuses on the characteristics of the music itself rather than only on user preferences.
 
-The Billboard and FMA datasets come from different sources and do not contain exactly the same songs.
+---
 
-The FMA dataset does not represent the complete commercial music market.
+# 🧠 Machine Learning Approach
 
-Acoustic similarity does not necessarily mean that two songs will be equally enjoyable for a particular user.
+## K-Means Clustering
 
-The number of clusters can affect the recommendations.
+The acoustic recommendation prototype uses **K-Means clustering**.
 
-The popularity and acoustic approaches are currently demonstrated separately.
+Before applying K-Means:
 
-A real Gnod product would need a much larger and more regularly updated dataset.
+* Relevant acoustic features are selected.
+* Features are standardized.
+* PCA is applied to reduce dimensionality.
 
-Recommendations would need to be evaluated with real users before being used in production.
+The objective is to group songs with relatively similar acoustic characteristics.
 
-Future Improvements
+---
 
-If this project were developed further, I would consider:
+## 📉 Choosing the Number of Clusters
 
-Combining collaborative filtering with acoustic similarity.
+Different numbers of clusters are evaluated using:
 
-Combining popularity and user preferences.
+### Elbow Method
 
-Using a larger and more representative music dataset.
+The elbow method helps identify a point where increasing the number of clusters provides diminishing improvements.
 
-Testing additional clustering algorithms such as DBSCAN and hierarchical clustering.
+### Silhouette Score
 
-Creating a better song-to-song similarity model.
+The silhouette score evaluates how well observations fit within their assigned clusters compared with other clusters.
 
-Adding user feedback to improve recommendations.
+Together, these methods help determine a suitable number of clusters for the recommendation prototype.
 
-Building a simple web interface for the recommender.
+---
 
-Updating the popularity data automatically.
+# 📁 Project Structure
 
-Testing the recommendations with real users.
-
-Exploring possible integrations with music streaming partners.
-
-The long-term goal would be to create a hybrid recommendation system that considers several aspects of music discovery instead of relying on only one method.
-
-Project Structure
-
+```text
 gnod-song-recommender/
 │
 ├── data/
-│   └── README.md
+│   ├── billboard_global_200.csv
+│   └── billboard_global_200_clean.csv
 │
 ├── Gnod_Song_Recommender.ipynb
 │
 ├── README.md
 │
-├── requirements.txt
-│
 └── .gitignore
+```
 
-The datasets themselves are not included in this repository because some of the source files are large. The notebook contains the steps used to obtain and process the required data.
+### Dataset note
 
-How to Run the Project
+The large FMA dataset is intentionally excluded from GitHub because some individual files exceed GitHub's recommended file-size limits.
 
-1. Clone the repository
+The repository therefore contains the analytical code and smaller supporting datasets rather than the complete FMA dataset.
 
+---
+
+# 🚀 How to Run the Project
+
+## 1. Clone the repository
+
+```bash
 git clone https://github.com/teresamendescoelho-cpu/gnod-song-recommender.git
+```
 
-2. Open the project in VS Code
+## 2. Enter the project directory
 
+```bash
 cd gnod-song-recommender
-code .
+```
 
-3. Install the required Python libraries
+## 3. Create a virtual environment
 
+### Windows
+
+```bash
+python -m venv .venv
+```
+
+Activate it:
+
+```bash
+.venv\Scripts\activate
+```
+
+## 4. Install the required libraries
+
+```bash
 pip install pandas numpy matplotlib seaborn scikit-learn requests beautifulsoup4 lxml jupyter
+```
 
-4. Open the notebook
+## 5. Open Jupyter Notebook
 
-Open:
+```bash
+jupyter notebook
+```
 
+Then open:
+
+```text
 Gnod_Song_Recommender.ipynb
+```
 
-Run the cells in order.
+Run the notebook cells in order.
 
-Conclusion
+---
 
-This project explores how Gnod could expand its current music recommendation system by using additional types of information.
+# ⚠️ Limitations
 
-The Billboard data provides a way to discover what is popular around the world, while the FMA audio features provide a way to compare songs based on their characteristics.
+This project represents an **initial recommendation prototype**, rather than a production-ready recommendation system.
 
-The clustering prototype shows how songs can be grouped according to their acoustic features and how those groups could be used to generate recommendations.
+The main limitations include:
 
-For me, the most interesting next step would be to combine these approaches with Gnod's existing collaborative filtering system. This could create recommendations that consider both what other users like and what the music itself sounds like.
+* Billboard and FMA datasets originate from different sources.
+* The datasets do not contain exactly the same songs.
+* The FMA dataset does not represent the complete commercial music market.
+* Acoustic similarity does not necessarily mean that two songs will be equally enjoyable to a particular user.
+* The number of clusters can influence the recommendations.
+* Popularity-based and acoustic recommendations are currently explored as separate approaches.
+* A production system would require a larger and regularly updated dataset.
+* Recommendations would need to be evaluated with real users.
 
-Author
+---
 
-Teresa Mendes Coelho
+# 🔮 Future Improvements
+
+If this project were developed further, I would consider:
+
+* Combining collaborative filtering with acoustic similarity.
+* Combining popularity with individual user preferences.
+* Using a larger and more representative music dataset.
+* Testing DBSCAN and hierarchical clustering.
+* Developing a more precise song-to-song similarity model.
+* Incorporating user feedback.
+* Creating an interactive web application.
+* Automatically updating popularity data.
+* Testing recommendations with real users.
+* Exploring integration with music streaming platforms.
+
+The long-term objective would be to develop a **hybrid recommendation system** that considers:
+
+**User preferences + music characteristics + worldwide popularity**
+
+rather than relying on a single recommendation method.
+
+---
+
+# 💡 Conclusion
+
+This project demonstrates how data analysis and machine learning can be used to explore new possibilities for music recommendation.
+
+The **Billboard Global 200** provides a way to identify songs that are currently popular internationally, while the **FMA audio features** provide information that can be used to compare songs based on their acoustic characteristics.
+
+The clustering approach demonstrates how songs can be grouped according to their musical features and how those groups can potentially be used to generate recommendations.
+
+The most interesting next step would be to combine these approaches with Gnod's existing collaborative-filtering system. A hybrid model could consider both **what users like** and **what the music itself sounds like**, potentially creating a more flexible and personalised music discovery experience.
+
+---
+
+# 👩‍💻 Author
+
+**Teresa Mendes Coelho**
 
 Ironhack Data Analytics Bootcamp
+
+GitHub:
+https://github.com/teresamendescoelho-cpu
